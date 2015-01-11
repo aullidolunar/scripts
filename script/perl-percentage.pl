@@ -12,10 +12,34 @@ use Locale::gettext;
 use POSIX;
 use Switch;
 
-# lapzas message: >
+use constant {
+	INCREMENT => 1,
+	DECREMENT => 2,
+	PERCENTAGE => 3
+};
+
+# lapzas message: < >
 
 BEGIN {
 	sub _ { gettext (@_); }
+}
+
+sub do_calculate {
+	my ($pos, $n1, $n2, $resp) = @_;
+	my $r = 0.0;
+	my $k = (($n1*$n2)/100);
+	switch ($pos) {
+		case (INCREMENT) {
+			$r = $n1 + $k;
+		}
+		case (DECREMENT) {
+			$r = $n1 - $k;
+		}
+		case PERCENTAGE {
+			$r = (100*(($n1 < $n2) ? ($n2-$n1) : ($n2+$n1)))/$n1;
+		}
+	}
+	$resp->set_text(sprintf ("%0.2f", $r));
 }
 
 sub toggle_button_ok {
@@ -32,6 +56,11 @@ sub toggle_button_ok {
 
 sub show_error_box {
 	my ($parent, $header, $body) = @_;
+	my $md = Gtk2::MessageDialog->new_with_markup ($parent, 'destroy-with-parent', 'error', 'close', "<b>$header</b>");
+	$md->set_title ($parent->get_title);
+	$md->format_secondary_markup ($body);
+	$md->run;
+	$md->destroy;
 }
 
 sub on_window1_destroy {
@@ -87,6 +116,26 @@ sub on_any_entry_press {
 
 sub on_button1_clicked {
 	my ($button, $data) = @_;
+	my $error_counter = 0;
+	my $error_msg = _('The following fields have bogues values:') . "\n";
+	my $number2 = $data->{'entry1'}->get_text;
+	my $number1 = 0.0;
+	if ($number2 !~ m/^[-]?\d+(?:[.]\d+)?$/) {
+		$error_counter++;
+		$error_msg .= _('Value1') . ": <b>$number2</b>\n";
+	}
+	$number1 = $number2;
+	$number2 = $data->{'entry2'}->get_text;
+	if ($number2 !~ m/^[-]?\d+(?:[.]\d+)?$/) {
+		$error_counter++;
+		$error_msg .= _('Value2') . ": $number2\n";
+	}
+	if ($error_counter) {
+		show_error_box ($data->{'window1'}, _('Error calculating'), $error_msg);
+	} else {
+		my $index = $data->{'combobox1'}->get_active;
+		do_calculate ($index, $number1, $number2, $data->{'entry3'});
+	}
 }
 
 sub on_button3_clicked {
@@ -126,6 +175,7 @@ sub Main {
 			undef ($pixbuf);
 		}
 		$data{'combobox1'}->set_active (0);
+		$data{'window1'}->set_title ($package . ' ' . $version);
 		$data{'window1'}->show_all;
 		Gtk2->main;
 		%data = ();

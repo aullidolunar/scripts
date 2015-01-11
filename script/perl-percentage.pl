@@ -18,6 +18,22 @@ BEGIN {
 	sub _ { gettext (@_); }
 }
 
+sub toggle_button_ok {
+	my ($button1, $entry1, $entry2, $combobox) = @_;
+	my $index = $combobox->get_active;
+	my $state = TRUE;
+	if ($index) {
+		$state = ($entry1->get_text_length && $entry2->get_text_length);
+	} else {
+		$state = FALSE;
+	}
+	$button1->set_sensitive ($state);
+}
+
+sub show_error_box {
+	my ($parent, $header, $body) = @_;
+}
+
 sub on_window1_destroy {
 	my ($window, $data) = @_;
 	Gtk2->main_quit;
@@ -25,14 +41,12 @@ sub on_window1_destroy {
 
 sub on_combobox1_changed {
 	my ($combobox, $data) = @_;
-	my $index = $combobox->get_active;
-	my $state = TRUE;
-	if ($index) {
-		$state = ($data->{'entry1'}->get_text_length && $data->{'entry2'}->get_text_length);
-	} else {
-		$state = FALSE;
-	}
-	$data->{'button1'}->set_sensitive ($state);
+	toggle_button_ok ($data->{'button1'}, $data->{'entry1'}, $data->{'entry2'}, $data->{'combobox1'});
+}
+
+sub on_any_entry_changed {
+	my ($entry, $data) = @_;
+	toggle_button_ok ($data->{'button1'}, $data->{'entry1'}, $data->{'entry2'}, $data->{'combobox1'});
 }
 
 sub on_any_entry_press {
@@ -69,6 +83,10 @@ sub on_any_entry_press {
 		case (\@valid_keys) { return FALSE; }
 		else { return TRUE; }
 	}
+}
+
+sub on_button1_clicked {
+	my ($button, $data) = @_;
 }
 
 sub on_button3_clicked {

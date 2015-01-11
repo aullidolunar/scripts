@@ -99,6 +99,7 @@
                         <property name="secondary_icon_activatable">False</property>
                         <property name="primary_icon_sensitive">True</property>
                         <property name="secondary_icon_sensitive">True</property>
+                        <signal name="changed" handler="on_any_entry_changed" swapped="no"/>
                         <signal name="key-press-event" handler="on_any_entry_press" swapped="no"/>
                       </object>
                       <packing>
@@ -144,6 +145,7 @@
                         <property name="secondary_icon_activatable">False</property>
                         <property name="primary_icon_sensitive">True</property>
                         <property name="secondary_icon_sensitive">True</property>
+                        <signal name="changed" handler="on_any_entry_changed" swapped="no"/>
                         <signal name="key-press-event" handler="on_any_entry_press" swapped="no"/>
                       </object>
                       <packing>
@@ -251,6 +253,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
+                <signal name="clicked" handler="on_button1_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>

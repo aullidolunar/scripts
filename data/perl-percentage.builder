@@ -42,6 +42,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="model">liststore1</property>
+                        <signal name="changed" handler="on_combobox1_changed" swapped="no"/>
                         <child>
                           <object class="GtkCellRendererPixbuf" id="cellrendererpixbuf1"/>
                           <attributes>
@@ -98,6 +99,7 @@
                         <property name="secondary_icon_activatable">False</property>
                         <property name="primary_icon_sensitive">True</property>
                         <property name="secondary_icon_sensitive">True</property>
+                        <signal name="key-press-event" handler="on_any_entry_press" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -142,6 +144,7 @@
                         <property name="secondary_icon_activatable">False</property>
                         <property name="primary_icon_sensitive">True</property>
                         <property name="secondary_icon_sensitive">True</property>
+                        <signal name="key-press-event" handler="on_any_entry_press" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -244,6 +247,7 @@
               <object class="GtkButton" id="button1">
                 <property name="label">gtk-ok</property>
                 <property name="visible">True</property>
+                <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>

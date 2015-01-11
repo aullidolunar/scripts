@@ -4,11 +4,13 @@ use warnings;
 use utf8;
 use strict;
 use Gtk2;
+use Gtk2::Gdk::Keysyms;
 use Glib qw/TRUE FALSE/;
 use File::Spec;
 use Cwd qw/abs_path/;
 use Locale::gettext;
 use POSIX;
+use Switch;
 
 # lapzas message: >
 
@@ -21,6 +23,54 @@ sub on_window1_destroy {
 	Gtk2->main_quit;
 }
 
+sub on_combobox1_changed {
+	my ($combobox, $data) = @_;
+	my $index = $combobox->get_active;
+	my $state = TRUE;
+	if ($index) {
+		$state = ($data->{'entry1'}->get_text_length && $data->{'entry2'}->get_text_length);
+	} else {
+		$state = FALSE;
+	}
+	$data->{'button1'}->set_sensitive ($state);
+}
+
+sub on_any_entry_press {
+	my ($entry, $event, $data) = @_;
+	my @valid_keys = (
+		$Gtk2::Gdk::Keysyms{Tab},
+		$Gtk2::Gdk::Keysyms{BackSpace},
+		$Gtk2::Gdk::Keysyms{0},
+		$Gtk2::Gdk::Keysyms{1},
+		$Gtk2::Gdk::Keysyms{2},
+		$Gtk2::Gdk::Keysyms{3},
+		$Gtk2::Gdk::Keysyms{4},
+		$Gtk2::Gdk::Keysyms{5},
+		$Gtk2::Gdk::Keysyms{6},
+		$Gtk2::Gdk::Keysyms{7},
+		$Gtk2::Gdk::Keysyms{8},
+		$Gtk2::Gdk::Keysyms{9},
+		$Gtk2::Gdk::Keysyms{KP_0},
+		$Gtk2::Gdk::Keysyms{KP_1},
+		$Gtk2::Gdk::Keysyms{KP_2},
+		$Gtk2::Gdk::Keysyms{KP_3},
+		$Gtk2::Gdk::Keysyms{KP_4},
+		$Gtk2::Gdk::Keysyms{KP_5},
+		$Gtk2::Gdk::Keysyms{KP_6},
+		$Gtk2::Gdk::Keysyms{KP_7},
+		$Gtk2::Gdk::Keysyms{KP_8},
+		$Gtk2::Gdk::Keysyms{KP_9},
+		$Gtk2::Gdk::Keysyms{period},
+		$Gtk2::Gdk::Keysyms{KP_Decimal},
+		$Gtk2::Gdk::Keysyms{KP_Subtract},
+		$Gtk2::Gdk::Keysyms{minus}
+	);
+	switch ($event->keyval) {
+		case (\@valid_keys) { return FALSE; }
+		else { return TRUE; }
+	}
+}
+
 sub on_button3_clicked {
 	my ($button, $data) = @_;
 	$data->{'window1'}->destroy;
@@ -29,9 +79,14 @@ sub on_button3_clicked {
 sub Main {
 	my ($manteiner, $package, $version) = @_;
 	my $data_dir = File::Spec->catdir (($manteiner) ? (abs_path =~ s/[^\/]*$//r) : '/usr/share', ($manteiner) ? 'data' : $package);
+	my $localedir = File::Spec->catdir ($data_dir, 'locale');
+	bind_textdomain_codeset ($package, "UTF-8");
+	bindtextdomain ($package, $localedir);
+	textdomain ($package);
+	setlocale (LC_ALL, "");
 	my $ui_file = File::Spec->catfile ($data_dir, $package . '.builder');
 	if (-f $ui_file) {
-		my @objects_name = qw/window1 combobox1/;
+		my @objects_name = qw/window1 combobox1 button1 entry1 entry2 entry3/;
 		my %data = ();
 		Gtk2->init;
 		my $builder = Gtk2::Builder->new;

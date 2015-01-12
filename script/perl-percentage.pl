@@ -165,24 +165,24 @@ sub on_button3_clicked {
 }
 
 sub Main {
-	my ($manteiner, $package, $version) = @_;
+	my ($manteiner, $p4ck4g3, $version) = @_;
 	binmode (STDOUT, ":utf8");
 	my $data_dir;
 	if ($manteiner) {
 		$data_dir = File::Spec->catdir ((abs_path =~ s/[^\/]*$//r), 'data');
 	} else {
-		$data_dir = File::Spec->catdir ('/usr/share', $package);
+		$data_dir = File::Spec->catdir ('/usr/share', $p4ck4g3);
 	} 
 	my $localedir = File::Spec->catdir ($data_dir, 'locale');
-	bind_textdomain_codeset ($package, "UTF-8");
-	bindtextdomain ($package, $localedir);
-	textdomain ($package);
+	bind_textdomain_codeset ($p4ck4g3, "UTF-8");
+	bindtextdomain ($p4ck4g3, $localedir);
+	textdomain ($p4ck4g3);
 	setlocale (LC_ALL, "");
-	my $ui_file = File::Spec->catfile ($data_dir, $package . '.builder');
+	my $ui_file = File::Spec->catfile ($data_dir, $p4ck4g3 . '.builder');
 	if (-f $ui_file) {
 		print "$ui_file\n";
 		my @objects_name = qw/window1 label3 combobox1 button1 entry1 entry2 entry3/;
-		my %data = ('p4ck4g3' => $package, 'version' => $version);
+		my %data = ('p4ck4g3' => $p4ck4g3, 'version' => $version);
 		Gtk2->init;
 		my $builder = Gtk2::Builder->new;
 		$builder->add_from_file ($ui_file);
@@ -203,7 +203,7 @@ sub Main {
 			undef ($pixbuf);
 		}
 		$data{'combobox1'}->set_active (0);
-		$data{'window1'}->set_title ($package . ' ' . $version);
+		$data{'window1'}->set_title ($p4ck4g3 . ' ' . $version);
 		my $icon = File::Spec->catfile ($data_dir, 'main.png');
 		$data{'window1'}->set_icon_from_file ($icon) if (-f $icon);
 		$data{'window1'}->show_all;

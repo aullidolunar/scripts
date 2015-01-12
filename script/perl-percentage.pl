@@ -70,7 +70,7 @@ sub on_window1_destroy {
 sub on_combobox1_changed {
 	my ($combobox, $data) = @_;
 	my $index = $combobox->get_active;
-	$data->{'label3'}->set_text ($index == PERCENTAGE ? _('Value2') : _('Percentage'));
+	$data->{'label3'}->set_text ($index == PERCENTAGE ? _("Value2") : _("Percentage"));
 	toggle_button_ok ($data->{'button1'}, $data->{'entry1'}, $data->{'entry2'}, $index);
 }
 
@@ -119,12 +119,12 @@ sub on_any_entry_press {
 sub on_button1_clicked {
 	my ($button, $data) = @_;
 	my $error_counter = 0;
-	my $error_msg = _('The following fields have bogues values:') . "\n";
+	my $error_msg = _("The following fields have bogues values:") . "\n";
 	my $number2 = $data->{'entry1'}->get_text;
 	my $number1 = 0.0;
 	if ($number2 !~ m/^[-]?\d+(?:[.]\d+)?$/) {
 		$error_counter++;
-		$error_msg .= _('Value1') . ": <b>$number2</b>\n";
+		$error_msg .= _("Value1") . ": <b>$number2</b>\n";
 	}
 	$number1 = $number2;
 	$number2 = $data->{'entry2'}->get_text;
@@ -137,7 +137,7 @@ sub on_button1_clicked {
 		my $model = $data->{'combobox1'}->get_model;
 		my $iter = $model->iter_nth_child (undef, $index);
 		my $op = $model->get ($iter, 1);
-		show_error_box ($data->{'window1'}, _('Error calculating') . ': ' . $op, $error_msg);
+		show_error_box ($data->{'window1'}, _("Error calculating") . ': ' . $op, $error_msg);
 	} else {
 		do_calculate ($index, $number1, $number2, $data->{'entry3'});
 	}
@@ -149,13 +149,13 @@ sub on_button2_clicked {
 		$data->{'window1'},
 		'authors', ['Joel Almeida<aullidolunar@gmail.com>'],
 		'artists', ['icons: <http://findicons.com/>'],
-		'comments', _('Percentage calculator'),
+		'comments', _("Percentage calculator"),
 		'logo', $data->{'window1'}->get_icon,
 		'program-name', $data->{'p4ck4g3'},
 		'translator-credits', 'Español: Joel<aullidolunar@gmail.com>',
 		'version', $data->{'version'},
 		'website', 'https://github.com/aullidolunar/scripts/tree/perl-percentage',
-		'website-label', _('Visit website at github')
+		'website-label', _("Visit website at github")
 	);
 }
 
@@ -180,7 +180,6 @@ sub Main {
 	setlocale (LC_ALL, "");
 	my $ui_file = File::Spec->catfile ($data_dir, $p4ck4g3 . '.builder');
 	if (-f $ui_file) {
-		print "$ui_file\n";
 		my @objects_name = qw/window1 label3 combobox1 button1 entry1 entry2 entry3/;
 		my %data = ('p4ck4g3' => $p4ck4g3, 'version' => $version);
 		Gtk2->init;

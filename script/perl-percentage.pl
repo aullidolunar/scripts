@@ -216,4 +216,4 @@ sub Main {
 	return 0;
 }
 
-exit Main (TRUE, ($0 =~ s/\.pl$//r), '1.0.4');
+exit Main (FALSE, ($0 =~ s/\.pl$//r), '1.0.4');

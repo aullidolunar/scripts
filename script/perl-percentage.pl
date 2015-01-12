@@ -167,7 +167,12 @@ sub on_button3_clicked {
 sub Main {
 	my ($manteiner, $package, $version) = @_;
 	binmode (STDOUT, ":utf8");
-	my $data_dir = File::Spec->catdir (($manteiner) ? (abs_path =~ s/[^\/]*$//r) : '/usr/share', (($manteiner) ? 'data' : $package));
+	my $data_dir;
+	if ($manteiner) {
+		$data_dir = File::Spec->catdir ((abs_path =~ s/[^\/]*$//r), 'data');
+	} else {
+		$data_dir = File::Spec->catdir ('/usr/share', $package);
+	} 
 	my $localedir = File::Spec->catdir ($data_dir, 'locale');
 	bind_textdomain_codeset ($package, "UTF-8");
 	bindtextdomain ($package, $localedir);
@@ -211,4 +216,4 @@ sub Main {
 	return 0;
 }
 
-exit Main (TRUE, ($0 =~ s/\.pl$//r), '1.0.3');
+exit Main (TRUE, ($0 =~ s/\.pl$//r), '1.0.4');

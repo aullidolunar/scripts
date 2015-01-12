@@ -128,7 +128,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Value2</property>
+                        <property name="label" translatable="yes">Percentage</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -282,6 +282,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
+                <signal name="clicked" handler="on_button2_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>

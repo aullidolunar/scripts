@@ -215,4 +215,4 @@ sub Main {
 	return 0;
 }
 
-exit Main (FALSE, ($0 =~ s/\.pl$//r), '1.0.4');
+exit Main (FALSE, 'perl-percentage', '1.0.4');

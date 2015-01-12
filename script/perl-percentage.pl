@@ -166,7 +166,8 @@ sub on_button3_clicked {
 
 sub Main {
 	my ($manteiner, $package, $version) = @_;
-	my $data_dir = File::Spec->catdir (($manteiner) ? (abs_path =~ s/[^\/]*$//r) : '/usr/share', ($manteiner) ? 'data' : $package);
+	binmode (STDOUT, ":utf8");
+	my $data_dir = File::Spec->catdir (($manteiner) ? (abs_path =~ s/[^\/]*$//r) : '/usr/share', (($manteiner) ? 'data' : $package));
 	my $localedir = File::Spec->catdir ($data_dir, 'locale');
 	bind_textdomain_codeset ($package, "UTF-8");
 	bindtextdomain ($package, $localedir);
@@ -174,6 +175,7 @@ sub Main {
 	setlocale (LC_ALL, "");
 	my $ui_file = File::Spec->catfile ($data_dir, $package . '.builder');
 	if (-f $ui_file) {
+		print "$ui_file\n";
 		my @objects_name = qw/window1 label3 combobox1 button1 entry1 entry2 entry3/;
 		my %data = ('p4ck4g3' => $package, 'version' => $version);
 		Gtk2->init;
@@ -209,4 +211,4 @@ sub Main {
 	return 0;
 }
 
-exit Main (TRUE, ($0 =~ s/\.pl$//r), '1.0.2');
+exit Main (TRUE, ($0 =~ s/\.pl$//r), '1.0.3');

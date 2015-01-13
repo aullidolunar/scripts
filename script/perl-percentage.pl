@@ -1,7 +1,9 @@
 #!/usr/bin/perl
 
-use warnings;
 use utf8;
+use Encode;
+use warnings;
+# use encoding 'utf8';
 use strict;
 use Gtk2;
 use Gtk2::Gdk::Keysyms;
@@ -21,7 +23,11 @@ use constant {
 # lapzas message: < >
 
 BEGIN {
-	sub _ { gettext (@_); }
+	sub _ {
+		my ($data) = @_;
+		my $line = Encode::decode_utf8 (@_); # set the flag
+		return gettext (@_);
+	}
 }
 
 sub do_calculate {
@@ -170,7 +176,7 @@ sub on_button3_clicked {
 
 sub Main {
 	my ($manteiner, $p4ck4g3, $version) = @_;
-	binmode (STDOUT, ":utf8");
+	binmode (STDOUT, ":encoding(utf8)");
 	my $data_dir;
 	if ($manteiner) {
 		$data_dir = File::Spec->catdir ((abs_path =~ s/[^\/]*$//r), 'data');

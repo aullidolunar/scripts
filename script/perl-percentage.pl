@@ -219,4 +219,4 @@ sub Main {
 	return 0;
 }
 
-exit Main (TRUE, 'perl-percentage', '1.0.4');
+exit Main (FALSE, 'perl-percentage', '1.0.5');

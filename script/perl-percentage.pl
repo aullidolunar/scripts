@@ -70,7 +70,11 @@ sub on_window1_destroy {
 sub on_combobox1_changed {
 	my ($combobox, $data) = @_;
 	my $index = $combobox->get_active;
-	$data->{'label3'}->set_text ($index == PERCENTAGE ? _("Value2") : _("Percentage"));
+	if ($index == PERCENTAGE) {
+		$data->{'label3'}->set_text (_("Value2"));
+	} else {
+		$data->{'label3'}->set_text (_("Percentage"));
+	}
 	toggle_button_ok ($data->{'button1'}, $data->{'entry1'}, $data->{'entry2'}, $index);
 }
 
@@ -119,7 +123,7 @@ sub on_any_entry_press {
 sub on_button1_clicked {
 	my ($button, $data) = @_;
 	my $error_counter = 0;
-	my $error_msg = _("The following fields have bogues values:") . "\n";
+	my $error_msg;
 	my $number2 = $data->{'entry1'}->get_text;
 	my $number1 = 0.0;
 	if ($number2 !~ m/^[-]?\d+(?:[.]\d+)?$/) {
@@ -137,7 +141,7 @@ sub on_button1_clicked {
 		my $model = $data->{'combobox1'}->get_model;
 		my $iter = $model->iter_nth_child (undef, $index);
 		my $op = $model->get ($iter, 1);
-		show_error_box ($data->{'window1'}, _("Error calculating") . ': ' . $op, $error_msg);
+		show_error_box ($data->{'window1'}, _("Error calculating") . ': ' . $op, _("The following fields have bogues values"). ":\n" . $error_msg);
 	} else {
 		do_calculate ($index, $number1, $number2, $data->{'entry3'});
 	}
@@ -215,4 +219,4 @@ sub Main {
 	return 0;
 }
 
-exit Main (FALSE, 'perl-percentage', '1.0.4');
+exit Main (TRUE, 'perl-percentage', '1.0.4');

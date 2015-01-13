@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: perl-percentage 1.0\n"
 "Report-Msgid-Bugs-To: aullidolunar@gmail.com\n"
-"POT-Creation-Date: 2015-01-12 08:24-0800\n"
-"PO-Revision-Date: 2015-01-12 08:24-0800\n"
+"POT-Creation-Date: 2015-01-12 15:36-0800\n"
+"PO-Revision-Date: 2015-01-12 15:36-0800\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: es_MX\n"
@@ -18,39 +18,48 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: script/perl-percentage.pl:127 tmp/perl-percentage.builder.h:1
-msgid "Value1"
-msgstr "Valor1"
+#: script/perl-percentage.pl:74
+msgid "Value2"
+msgstr "Valor2"
 
-#: script/perl-percentage.pl:140
-msgid "Error calculating"
-msgstr "Error calculando"
-
-#: script/perl-percentage.pl:152 tmp/perl-percentage.desktop.in.h:1
-msgid "Percentage calculator"
-msgstr "Calculadora de porcentaje"
-
-#: script/perl-percentage.pl:158
-msgid "Visit website at github"
-msgstr "Visitar sitio en Github"
-
-#: script/perl-percentage.pl:186
-msgid "Choose the operation"
-msgstr "Seleccionar la operación"
-
-#: script/perl-percentage.pl:187
-msgid "Increment"
-msgstr "Incremento"
-
-#: script/perl-percentage.pl:188
-msgid "Decrement"
-msgstr "Descuento"
-
-#: script/perl-percentage.pl:189 tmp/perl-percentage.builder.h:2
+#: script/perl-percentage.pl:76 script/perl-percentage.pl:199
+#: tmp/perl-percentage.builder.h:2
 msgid "Percentage"
 msgstr "Porcentaje"
 
-#: script/perl-percentage.pl:206
+#: script/perl-percentage.pl:131 tmp/perl-percentage.builder.h:1
+msgid "Value1"
+msgstr "Valor1"
+
+#: script/perl-percentage.pl:144
+msgid "Error calculating"
+msgstr "Error calculando"
+
+#: script/perl-percentage.pl:144
+msgid "The following fields have bogues values"
+msgstr "Los siguientes campos tienen valores ambigüos"
+
+#: script/perl-percentage.pl:156 tmp/perl-percentage.desktop.in.h:1
+msgid "Percentage calculator"
+msgstr "Calculador de porcentajes"
+
+#: script/perl-percentage.pl:162
+msgid "Visit website at github"
+msgstr "Visita sitio en Github"
+
+#: script/perl-percentage.pl:196
+msgid "Choose the operation"
+msgstr "Selecciona la operación"
+
+#: script/perl-percentage.pl:197
+msgid "Increment"
+msgstr "Incremento"
+
+#: script/perl-percentage.pl:198
+msgid "Decrement"
+msgstr "Descuento"
+
+#: script/perl-percentage.pl:216
 msgid "No UI file found"
 msgstr "Archivo UI no encontrado"
 
